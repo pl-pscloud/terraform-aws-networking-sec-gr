@@ -30,7 +30,7 @@ security_group_id = aws_security_group.pscloud-sec-gr.id
 }
 
 resource "aws_security_group_rule" "pscloud-sec-rule-sec-group" {
-  count = (length(var.pscloud_from_sec_gr) > 0 ? length(var.pscloud_sec_ports) : 0)
+  count           = (length(var.pscloud_from_sec_gr) > 0 ? length(var.pscloud_sec_ports) : 0)
 
   type            = "ingress"
   from_port       = var.pscloud_sec_ports[count.index]
