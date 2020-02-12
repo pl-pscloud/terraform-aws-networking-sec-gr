@@ -25,7 +25,6 @@ resource "aws_security_group_rule" "pscloud-sec-rule-cidr" {
   protocol        = "tcp"
   cidr_blocks     = var.pscloud_from_cidr
 
-
 security_group_id = aws_security_group.pscloud-sec-gr.id
 }
 
