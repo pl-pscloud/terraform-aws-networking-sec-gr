@@ -6,7 +6,7 @@ variable "pscloud_sec_name" {}
 variable "pscloud_from_cidr" {
   type = list(object({
     port          = string
-    cidr          = string
+    cidr          = list(string)
     protocol      = string
   }))
   default = []
@@ -15,7 +15,7 @@ variable "pscloud_from_cidr" {
 variable "pscloud_from_sec_gr" {
   type = list(object({
     port          = string
-    sec_gr        = string
+    sec_gr        = list(string)
     protocol      = string
   }))
   default = []
