@@ -23,19 +23,19 @@ resource "aws_security_group_rule" "pscloud-sec-rule-cidr" {
   from_port       = var.pscloud_from_cidr[count.index].port
   to_port         = var.pscloud_from_cidr[count.index].port
   protocol        = var.pscloud_from_cidr[count.index].protocol
-  cidr_blocks     = var.pscloud_from_cidr[count.index].cidr
+  cidr_blocks     = var.pscloud_from_cidr[count.index].val
 
   security_group_id = aws_security_group.pscloud-sec-gr.id
 }
 
 resource "aws_security_group_rule" "pscloud-sec-rule-sec-group" {
-  count           = length(var.pscloud_from_sec_gr)
+  count                        = length(var.pscloud_from_sec_gr)
 
-  type            = "ingress"
-  from_port       = var.pscloud_from_sec_gr[count.index].port
-  to_port         = var.pscloud_from_sec_gr[count.index].port
-  protocol        = var.pscloud_from_sec_gr[count.index].protocol
-  source_security_group_id     = var.pscloud_from_sec_gr[count.index].sec_gr
+  type                         = "ingress"
+  from_port                    = var.pscloud_from_sec_gr[count.index].port
+  to_port                      = var.pscloud_from_sec_gr[count.index].port
+  protocol                     = var.pscloud_from_sec_gr[count.index].protocol
+  source_security_group_id     = var.pscloud_from_sec_gr[count.index].val
 
   security_group_id = aws_security_group.pscloud-sec-gr.id
 }
