@@ -35,7 +35,7 @@ resource "aws_security_group_rule" "pscloud-sec-rule-sec-group" {
   from_port       = var.pscloud_from_sec_gr[count.index].port
   to_port         = var.pscloud_from_sec_gr[count.index].port
   protocol        = var.pscloud_from_sec_gr[count.index].protocol
-  cidr_blocks     = var.pscloud_from_sec_gr[count.index].cidr
+  source_security_group_id     = var.pscloud_from_sec_gr[count.index].sec_gr
 
   security_group_id = aws_security_group.pscloud-sec-gr.id
 }
