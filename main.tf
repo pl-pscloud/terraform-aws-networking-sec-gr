@@ -17,26 +17,25 @@ resource "aws_security_group" "pscloud-sec-gr" {
 }
 
 resource "aws_security_group_rule" "pscloud-sec-rule-cidr" {
-  count = (length(var.pscloud_from_cidr) > 0 ? length(var.pscloud_sec_ports) : 0)
+  count           = length(var.pscloud_from_cidr)
 
   type            = "ingress"
-  from_port       = var.pscloud_sec_ports[count.index]
-  to_port         = var.pscloud_sec_ports[count.index]
-  protocol        = "tcp"
-  cidr_blocks     = var.pscloud_from_cidr
+  from_port       = var.pscloud_from_cidr[count.index].port
+  to_port         = var.pscloud_from_cidr[count.index].port
+  protocol        = var.pscloud_from_cidr[count.index].protocol
+  cidr_blocks     = var.pscloud_from_cidr[count.index].cidr
 
-security_group_id = aws_security_group.pscloud-sec-gr.id
+  security_group_id = aws_security_group.pscloud-sec-gr.id
 }
 
 resource "aws_security_group_rule" "pscloud-sec-rule-sec-group" {
-  count           = (length(var.pscloud_from_sec_gr) > 0 ? length(var.pscloud_sec_ports) : 0)
+  count           = length(var.pscloud_from_sec_gr)
 
   type            = "ingress"
-  from_port       = var.pscloud_sec_ports[count.index]
-  to_port         = var.pscloud_sec_ports[count.index]
-  protocol        = "tcp"
-  source_security_group_id = var.pscloud_from_sec_gr[0]
-
+  from_port       = var.pscloud_from_sec_gr[count.index].port
+  to_port         = var.pscloud_from_sec_gr[count.index].port
+  protocol        = var.pscloud_from_sec_gr[count.index].protocol
+  cidr_blocks     = var.pscloud_from_sec_gr[count.index].cidr
 
   security_group_id = aws_security_group.pscloud-sec-gr.id
 }
